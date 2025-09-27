@@ -1,0 +1,53 @@
+class Solution {
+    public int shipWithinDays(int[] weights, int days) {
+        int sum = 0;
+        int max = Integer.MIN_VALUE;
+
+        for (int w : weights) {
+            sum += w;
+            max = Math.max(max, w); 
+        }
+
+        int low = max;
+        int high = sum;
+        int ans = sum; 
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (isPossible(weights, days, mid)) {
+                ans = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return ans;
+    }
+
+    private static boolean isPossible(int[] weights, int days, int mid) {
+        int wsum = 0;
+        int cut = 1;
+
+        for (int w : weights) {
+            if (wsum + w <= mid) {
+                wsum += w;
+            } else {
+                cut++;
+                wsum = w;
+            }
+        }
+
+        return cut <= days;
+    }
+}
+// Time Complexity: O(N * log S)
+// - N = number of packages (length of weights array)
+// - S = range of search space = sum(weights) - max(weights)
+// - Binary search runs in log S time, and each check (isPossible) takes O(N)
+
+// Space Complexity: O(1)
+// - No extra space used beyond a few variables
+// - The input array is read-only and no auxiliary data structures are used
+
