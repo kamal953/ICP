@@ -1,1 +1,29 @@
 
+class Solution {
+    public int findMinArrowShots(int[][] points) {
+
+        Arrays.sort(points, (a, b) -> Integer.compare(a[0], b[0]));
+
+        List<int[]> list = new ArrayList<>();
+        int s = points[0][0];
+        int e = points[0][1];
+        int n = points.length;
+        for (int i = 1; i < n; i++) {
+           
+           if(e>= points[i][0]){
+            e = Math.min(e , points[i][1]);
+           }
+           else{
+            list.add(new int[]{s,e});
+            s = points[i][0];
+            e = points[i][1];
+           }
+        }
+        list.add(new int[]{s,e});
+
+        return list.size();
+    }
+}
+
+// Time Complexity: O(n log n) — due to sorting the intervals
+// Space Complexity: O(n) — for storing merged intervals in the list
