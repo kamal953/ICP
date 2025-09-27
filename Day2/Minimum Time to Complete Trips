@@ -1,0 +1,41 @@
+class Solution {
+    public long minimumTime(int[] time, int totalTrips) {
+        
+		int n = time.length;
+
+		double effective = 0;
+		for (int i = 0; i < n; i++)
+			effective += 1.0 / time[i];
+
+		long left = (long) (totalTrips / effective - 0.01);
+		long right = (long) ((totalTrips + n) / effective);
+
+        while(left <= right){
+            long mid = left + right >> 1;
+            if(check(time, totalTrips, mid))
+                right = mid - 1;
+            else
+                left = mid + 1;
+        }
+        
+        return left;
+    }
+
+    boolean check(int[] time, int totalTrips, long minTime){
+
+        for(int x:time){
+            totalTrips -= (int) (minTime / (double) x);
+            if(totalTrips <= 0) return true;
+        }
+        
+        return false;
+    }
+}
+// Time Complexity: O(N * log R)
+// - N = number of buses (length of time array)
+// - R = range of binary search = (max time to complete all trips)
+// - Binary search runs in log R time, and each check iteration takes O(N)
+
+// Space Complexity: O(1)
+// - No extra space used beyond a few variables
+// - All computations are done in-place without auxiliary data structures
