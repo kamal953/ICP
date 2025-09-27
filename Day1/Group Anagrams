@@ -1,0 +1,25 @@
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> ans = new HashMap<>();
+
+        for (String s : strs) {
+            char[] chars = s.toCharArray();
+            Arrays.sort(chars);
+            String key = new String(chars);
+            if (!ans.containsKey(key)) {
+                ans.put(key, new ArrayList<>());
+            }
+            ans.get(key).add(s);
+        }
+
+        return new ArrayList<>(ans.values());        
+    }
+}
+// Time Complexity: O(N * K log K)
+// - N = number of strings in the input array
+// - K = maximum length of a string
+// - For each string, sorting takes O(K log K), and inserting into the map is O(1) on average
+
+// Space Complexity: O(N * K)
+// - We store all strings in grouped lists inside the map
+// - Each string of length K is stored once, and the map holds up to N entries in total
