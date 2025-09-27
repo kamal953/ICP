@@ -1,0 +1,17 @@
+class Solution {
+    public int maximumProduct(int[] nums) {
+        Arrays.sort(nums);
+        int n=nums.length;
+        int minProduct=nums[0]*nums[1]*nums[n-1];
+        int MaxProduct=nums[n-1]*nums[n-2]*nums[n-3];
+        MaxProduct=Math.max(minProduct,MaxProduct);
+        return MaxProduct;
+    }
+}
+// Time Complexity: O(N log N)
+// - Sorting the array dominates the runtime
+// - Remaining operations (multiplications and comparisons) are O(1)
+
+// Space Complexity: O(1)
+// - Sorting is done in-place
+// - No extra space used beyond a few variables
