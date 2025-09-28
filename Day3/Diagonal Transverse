@@ -33,3 +33,12 @@ class Solution {
         return result;
     }
 }
+// Time Complexity: O(m * n)
+// - Traversing the matrix takes O(m * n)
+// - Grouping elements and building the result array are both linear in total number of elements
+
+// Space Complexity: O(m + n)
+// - HashMap stores diagonals indexed by i + j (max m + n - 1 keys)
+// - Each key maps to a list of elements, total space is O(m * n)
+
+
