@@ -1,0 +1,19 @@
+class Solution {
+    public int addDigits(int n) {
+     return checkModulo(n);
+
+        }
+        private static int checkModulo(int n){
+            if(n==0){
+                return 0;
+            }
+            if(n%9==0){
+                return 9;
+            }
+            else{
+                return n%9;
+            }
+        }
+}
+// Time Complexity: O(1) — Constant time due to direct mathematical computation.
+// Space Complexity: O(1) — No extra space used beyond primitive variables.
