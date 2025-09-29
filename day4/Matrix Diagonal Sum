@@ -1,0 +1,18 @@
+class Solution {
+    public int diagonalSum(int[][] mat) {
+        int n=mat.length;
+        int ans=0;
+        int MaxSum=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+               if(i==j || j==n-1-i) {
+                 MaxSum+=mat[i][j];
+                ans=Math.max(ans,MaxSum);
+               }
+            }
+        }return ans;
+    }
+}
+// Time Complexity: O(n^2) — Nested loops iterate over all elements in the matrix.
+// Space Complexity: O(1) — No extra space used beyond a few integer variables.
+
