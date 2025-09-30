@@ -1,0 +1,21 @@
+class Solution {
+    public int characterReplacement(String s, int k) {
+        int left = 0, n = s.length(), maxLen = 0, maxCount = 0;
+        int[] freq = new int[26];
+        for(int right = 0; right < n; right++){
+            freq[s.charAt(right) - 'A']++;
+            maxCount = Math.max(maxCount, freq[s.charAt(right) - 'A']);
+            if(right - left + 1 - maxCount > k){
+                freq[s.charAt(left) - 'A']--;
+                left++;
+            }
+            maxLen = Math.max(maxLen, right - left + 1);
+        }
+        return maxLen;
+    }
+}
+// Time Complexity: O(n)
+// Each character is processed once by the right pointer and at most once by the left pointer. The maxCount update and array access are constant-time operations.
+
+// Space Complexity: O(1)
+// The frequency array has a fixed size of 26 (for uppercase English letters), so space usage is constant regardless of input size.
