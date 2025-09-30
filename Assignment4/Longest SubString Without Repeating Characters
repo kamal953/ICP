@@ -1,0 +1,24 @@
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int left = 0;
+        int maxLength = 0;
+        HashSet<Character> charSet = new HashSet<>();
+
+        for (int right = 0; right < s.length(); right++) {
+            while (charSet.contains(s.charAt(right))) {
+                charSet.remove(s.charAt(left));
+                left++;
+            }
+
+            charSet.add(s.charAt(right));
+            maxLength = Math.max(maxLength, right - left + 1);
+        }
+
+        return maxLength;       
+    }
+}
+// Time Complexity: O(n)
+// Each character is visited at most twice—once by the right pointer and once by the left—so the overall time is linear in the length of the string.
+
+// Space Complexity: O(min(n, m))
+// Where n is the length of the string and m is the size of the character set (e.g., 26 for lowercase letters, 128 for ASCII). The HashSet stores at most m unique characters at any time.
