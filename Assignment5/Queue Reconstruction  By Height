@@ -1,0 +1,17 @@
+class Solution {
+public int[][] reconstructQueue(int[][] people) {
+	Arrays.sort(people, (a,b) -> a[0] == b[0] ? a[1] - b[1] : b[0] - a[0]);
+
+	List<int[]> ordered = new LinkedList<>();
+	for (int[] p: people) ordered.add(p[1], p);
+
+	return ordered.toArray(new int[people.length][2]);
+}
+}
+
+// Time Complexity: O(n²)
+// - Sorting takes O(n log n)
+// - Inserting each person at index k in LinkedList takes O(n) in worst case
+// - Total insertion cost: O(n²)
+// Space Complexity: O(n)
+// - For the auxiliary LinkedList storing the reconstructed queue
