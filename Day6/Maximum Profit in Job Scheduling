@@ -1,0 +1,27 @@
+    public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
+        int n = startTime.length;
+        int[][] jobs = new int[n][3];
+        for (int i = 0; i < n; i++) {
+            jobs[i] = new int[] {startTime[i], endTime[i], profit[i]};
+        }
+        Arrays.sort(jobs, (a, b)->a[1] - b[1]);
+        TreeMap<Integer, Integer> dp = new TreeMap<>();
+        dp.put(0, 0);
+        for (int[] job : jobs) {
+            int cur = dp.floorEntry(job[0]).getValue() + job[2];
+            if (cur > dp.lastEntry().getValue())
+                dp.put(job[1], cur);
+        }
+        return dp.lastEntry().getValue();
+    }
+// n = number of jobs
+// Each job has: startTime[i], endTime[i], profit[i]
+
+//  Time Complexity: O(n log n)
+// - Sorting jobs by end time takes O(n log n)
+// - For each job, TreeMap.floorEntry() and lastEntry() are O(log n)
+// - Total traversal over n jobs → O(n log n)
+
+// Space Complexity: O(n)
+// - jobs[] array stores n jobs with 3 fields each → O(n)
+// - TreeMap dp stores up to n entries in worst case → O(n)
