@@ -1,0 +1,40 @@
+class Solution {
+    public void wiggleSort(int[] nums) {
+        Arrays.sort(nums);
+        int n = nums.length;
+        int mid = (n + 1) / 2;
+
+        int[] left = Arrays.copyOfRange(nums, 0, mid);
+        int[] right = Arrays.copyOfRange(nums, mid, n);
+
+      
+        reverse(left);
+        reverse(right);
+
+      
+        int i = 0;
+        for (int l = 0; l < left.length; l++) {
+            nums[i] = left[l];
+            i += 2;
+        }
+        i = 1;
+        for (int r = 0; r < right.length; r++) {
+            nums[i] = right[r];
+            i += 2;
+        }
+    }
+
+    private void reverse(int[] arr) {
+        int i = 0, j = arr.length - 1;
+        while (i < j) {
+            int temp = arr[i];
+            arr[i++] = arr[j];
+            arr[j--] = temp;
+        }
+    }
+}
+// Time Complexity: O(n log n)
+// Due to sorting the array.
+
+// Space Complexity: O(n)
+// Temporary arrays for left and right halves.
