@@ -1,0 +1,27 @@
+class Solution {
+    public int rob(int[] arr) {
+        int[]dp=new int [arr.length];
+        Arrays.fill(dp,-1);
+        return(robber(arr,0,dp));
+    }
+    public static int robber(int[] arr,int i,int[] dp){
+        if(arr.length==1){
+            return arr[0];
+        }
+        if(i>=arr.length){
+            return 0;
+        }
+        if(dp[i]!=-1){
+            return dp[i];
+        }
+        int rob1=arr[i]+robber(arr,i+2,dp);
+        int not_rob1=robber(arr,i+1,dp);
+        return dp[i]=Math.max(rob1,not_rob1);
+    }
+}
+// Time Complexity: O(n)
+// Each index is computed only once due to memoization, so the recursion tree has at most n nodes.
+
+// Space Complexity: O(n)
+// The dp array takes O(n) space.
+// Additionally, the recursion stack can go up to O(n) depth in the worst case.
